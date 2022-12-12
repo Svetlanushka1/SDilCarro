@@ -6,13 +6,12 @@ public class TestBase {
     static ApplicationManager app = new ApplicationManager();
 
     @BeforeSuite
-    public void srtUp(){
-
+    public void setUpp(){
         app.init();
     }
 
     @AfterSuite
     public void tearDawn(){
-        app.stop();
+        //app.stop();
     }
 }

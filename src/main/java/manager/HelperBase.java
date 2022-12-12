@@ -10,7 +10,6 @@ public class HelperBase {
     WebDriver wd;
 
     public HelperBase(WebDriver wd) {
-
         this.wd = wd;
     }
 
@@ -43,5 +42,11 @@ public class HelperBase {
         return wd.findElement(locator).getText();
 
     }
+
+    public void logoButton() {
+        click(By.xpath("//div[@class='header']//img[@alt='logo']"));
+    }
+
+
 }
 

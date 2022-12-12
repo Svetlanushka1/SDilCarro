@@ -14,19 +14,13 @@ public class User {
         return this;
     }
 
-    public void setLastName(String lastName) {
-
-        this.lastName = lastName;
-    }
+    public void setLastName(String lastName) {this.lastName = lastName;}
     public User withLastName(String lastName) {
         this.lastName = lastName;
         return this;//return link to User
     }
 
-    public void setEmail(String email) {
-
-        this.email = email;
-    }
+    public void setEmail(String email) {this.email = email;}
     public User withEmail(String email) {
         this.email = email;
         return this;

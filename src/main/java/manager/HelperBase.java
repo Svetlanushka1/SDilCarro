@@ -34,7 +34,14 @@ public class HelperBase {
 
     public void pause(int time) {
         //to postpone WebBrowser from action for a few min
-        wd.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+       //wd.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+       //time = time *1000;
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     //get info about new add contact:
@@ -46,7 +53,6 @@ public class HelperBase {
     public void logoButton() {
         click(By.xpath("//div[@class='header']//img[@alt='logo']"));
     }
-
 
 }
 

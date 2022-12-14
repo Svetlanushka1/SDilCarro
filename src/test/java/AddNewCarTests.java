@@ -1,26 +1,26 @@
-import modals.Car;
-import org.openqa.selenium.By;
+import models.Car;
+import models.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-//Дописать позитивный и добавить негативный тест в AddNewCarTests
 public class AddNewCarTests extends TestBase {
     @BeforeMethod
     public void preCondition() {
-        if (app.getUser().isLogged() == false) {
-            app.getUser().login();
-
+     if (app.getUser().isLogged() == false) {
+            app.getUser()
+                    .login();
         }
-       /* if (app.getUser().isLogged() == false) {
+    /* if (app.getUser().isLogged() == false) {
             app.getUser()
                     .login((new User())
                             .withEmail("haifa@gmail.com")
                             .withPassword("Haifa082022$"));
-            app.getUser().pause(10);
-           // app.getUser().wait(By.xpath("//h2[@class='message']"));contains success
-
-            app.getUser().clickOKButton();
+            app.getUser().pause(2000);
+            app.getUser().submitLogin();
+            app.getUser().pause(3000);
+            //app.getUser().wait(By.xpath("//h2[@class='message']").contains("success"));
+            app.getUser().clickOkButton();
         }*/
 
     }
@@ -30,37 +30,43 @@ public class AddNewCarTests extends TestBase {
         int i = (int) ((System.currentTimeMillis() / 1000) % 3600);
         Car car = Car.builder()
                 .address("Tel Aviv")
-                .manufacture("KIA")
-                .model("Sportage")
+                .make("Toyota Camry")
+                .model("Sedan")
                 .year("2022")
-                .fuel("Petrol")
+                .fuel("Hybrid")
                 .seats("4")
-                .carClass("5")
-                .carRegNumber("100-200" + i)
-                .price("150")
+                .carClass("luxury")
+                .carRegNumber("100-200"+i)
+                .price("300")
                 .build();
 
         app.getCar().openCarForm();
+        app.getUser().pause(3000);
         Assert.assertTrue(app.getCar().isCarFormPresent());
-        app.getCar().fillCarForm(Car.builder()
+        app.getUser().pause(3000);
+        app.getCar().fillCarForm(car);
+        app.getUser().pause(2000);
+        //app.getCar().addCarPhotos();//label[@for='photos']
+        app.getCar().submitCarForm();
+
+
+
+       /* app.getCar()
+       .fillCarForm(Car.builder()
                 .address("Tel Aviv")
-                .manufacture("KIA")
-                .model("Sportage")
+                .make("KIA")
+                .model("Sport")
                 .year("2022")
                 .fuel("Petrol")
                 .seats("4")
                 .carClass("5")
                 .carRegNumber("100-200")
                 .price("150")
-                .build());
+                            .build());*/
         //app.getCar().click(By.xpath("//div[@class='address-data']")//input[@id='pickUpPlace']
-        //app.getCar().submitCarForm();
-        // Assert.assertTrue();
 
     }
 
-   /* @AfterMethod
-    public void postCondition() {
+   // @AfterMethod
 
-    }*/
 }

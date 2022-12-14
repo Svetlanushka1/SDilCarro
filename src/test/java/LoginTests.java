@@ -1,4 +1,4 @@
-import modals.User;
+import models.User;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends TestBase {
     @BeforeMethod
-    public void preCond() {
+    public void preCondition() {
         if (app.getUser().isLogged()) {
-            app.getUser().pause(3);
+            //app.getUser().pause(3);
             app.getUser().logout();
         }
 
@@ -27,14 +27,14 @@ public class LoginTests extends TestBase {
         app.getUser().fillingLoginForm(data);
         app.getUser().submitLogin();
 
-        app.getUser().pause(5);
+        app.getUser().pause(2000);
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//h2[@class='message']")));
-        app.getUser().click(By.xpath("//button[text()='Ok']"));
         Assert.assertTrue(app.getUser().isLoggedSuccess());
+        //app.getUser().click(By.xpath("//button[text()='Ok']"));
 
 
     }
-
+/*
     @Test
     public void loginWrongEmail() {
         User data = new User()
@@ -68,7 +68,7 @@ public class LoginTests extends TestBase {
         app.getUser().pause(3);
         Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//a[@href='/logout?url=%2Fsearch']")));
         app.getUser().logoButton();*/
-
+/*
     }
     @Test
     public void emailOnlyOneLetterAfterPoint() {
@@ -159,10 +159,10 @@ public class LoginTests extends TestBase {
         app.getUser().pause(3);
         app.getUser().submitLogin();
         Assert.assertTrue(app.getUser().getText(By.xpath("//h2[@class='message'] ")).contains("Login or Password incorrect"));
-        app.getUser().click(By.xpath("//button[text()='Ok']"));
+       // app.getUser().click(By.xpath("//button[text()='Ok']"));
 
 
-    }
+    }*/
 
 
 
@@ -170,9 +170,10 @@ public class LoginTests extends TestBase {
     public void postCondition() {
 
         //app.getUser().click(By.cssSelector("div[class='mobile-header'] img[alt='logo']"));
-       app.getUser().click(By.xpath("//a[@id='0']"));
-       app.stop();
-
+        //app.getUser().click(By.xpath("//a[@id='0']"));
+        app.getUser().pause(2000);
+        app.getUser().clickOkButton();
+        //app.getUser().click(By.xpath("//button[text()='Ok']"));
         //button[text()='OK']
     }
 }

@@ -1,11 +1,14 @@
-package modals;
-
+package models;
+/*
 import lombok.Builder;
-import lombok.Generated;
+import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.ToString;*/
+import lombok.*;
+
 
 @Generated
+@Getter
 @Setter
 @ToString
 @Builder
@@ -13,7 +16,7 @@ import lombok.ToString;
 
 public class Car {
     String address;
-    String manufacture;
+    String make;
     String model;
     String year;
     String fuel;

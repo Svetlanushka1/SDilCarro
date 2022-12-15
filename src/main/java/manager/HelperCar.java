@@ -1,4 +1,5 @@
 package manager;
+
 import models.Car;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,39 +7,42 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HelperCar extends HelperBase{
+public class HelperCar extends HelperBase {
     public HelperCar(WebDriver wd) {
 
         super(wd);
     }
 
     public void openCarForm() {
-        pause(1000);
-       //click(By.xpath("//a[@id='1']")); -> [ Let the car work ] button
+        isElementVisible(By.xpath("//a[@id='1']"));
+
+        //.until(ExpectedConditions.visibilityOfElementLocated()
+        //click(By.xpath("//a[@id='1']")); -> [ Let the car work ] button
         click(By.id("1"));
     }
+
     public boolean isCarFormPresent() {
-        return new WebDriverWait(wd, 10)
+        return new WebDriverWait(wd, 5)
                 .until(ExpectedConditions.textToBePresentInElement(
-                       wd.findElement(By.cssSelector(".part-label:first-child")),"Location:"));// -> Location label
-                       //wd.findElement(By.cssSelector("h1[class='title']"))," Let the car work "));
+                        wd.findElement(By.cssSelector("#pickUpPlace")), "Enter your address"));
+        //return new WebDriverWait(wd, 5).until(ExpectedConditions.textToBePresentInElement(wd.findElement(By.cssSelector(".part-label:first-child")),"Location:"));// -> Location label
+        //wd.findElement(By.cssSelector("h1[class='title']"))," Let the car work "));
         //wd.findElement(By.xpath("//div[@class='car-card']//h1[.' Let the car work ']"))," Let the car work "));
-                               // "Enter your address"));
+        // isElementPresent(By.id("pickUpPlace")) ;  // div/h2 "Write some details about your car to rent it out"
 
-        //div/h2 "Write some details about your car to rent it out"
-        //return  new WebDriverWait(wd,10).until(ExpectedConditions.textToBePresentInElement(wd.findElement(By.xpath(" //div/h2")), "Write some details about your car to rent it out"));
-
-        // isElementPresent(By.id("pickUpPlace"))
     }
-    public void typeLocation(String address){
-        type(By.id("pickUpPlace"),address);
-        pause(3000);
+
+    public void typeLocation(String address) {
+        type(By.id("pickUpPlace"), address);
+        isElementPresent(By.cssSelector(".pac-matched:first-child"));
+        //pause(3000);
         //click(By.cssSelector("div.pac-item"));//.pac-matched:first-child
         click(By.cssSelector(".pac-matched:first-child"));
-        pause(3000);
+        //pause(3000);
 
     }
-    public void select(By locator,String option){
+
+    public void select(By locator, String option) {
         new Select(wd.findElement(locator)).selectByValue(option);
 
     }
@@ -49,14 +53,16 @@ public class HelperCar extends HelperBase{
         type(By.id("make"), car.getMake());
         type(By.id("model"), car.getModel());
         type(By.id("year"), car.getYear());
-        select(By.id("fuel"),car.getFuel());
+        select(By.id("fuel"), car.getFuel());
         type(By.id("seats"), car.getSeats());
         type(By.id("class"), car.getCarClass());
+
+
         type(By.id("serialNumber"), car.getCarRegNumber());
         type(By.id("price"), car.getPrice());
     }
 
-    public void submitButton(){
+    public void submitButton() {
         click(By.xpath("//button[@type='submit']"));
     }
 

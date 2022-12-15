@@ -46,7 +46,8 @@ public class HelperUser extends HelperBase {
       //  click(By.xpath("//button[@type='button']"));
     }
     public void submitRegistration() {
-        click(By.xpath("//button[@type='button']"));
+        //click(By.xpath("//button[@type='button']"));
+        click(By.cssSelector("button[type='submit']"));
                 //button[2]"));
     }
 
@@ -92,14 +93,32 @@ public class HelperUser extends HelperBase {
 
     public void fillRegistrationForm(User user) {
 
-        type(By.id("name"), user.getName());
+        //type(By.id("name"), user.getName());
+        type(By.xpath("//input[@id='name']"), user.getName());
         type(By.id("lastName"), user.getLastName());
+        //type(By.cssSelector("label[for='lastName']"), user.getLastName());
         type(By.id("email"), user.getEmail());
-        type(By.id("name"), user.getPassword());
-        click(By.cssSelector(""));
+        //type(By.cssSelector("label[for='email']"), user.getEmail());
+        type(By.id("password"), user.getPassword());
+         //type(By.cssSelector("label[for='password']"), user.getPassword());
+        click(By.xpath("//label[contains(text(),'I agree to the')]")); //->checkBox
     }
 
     public void openRegistrationForm() {
-        click(By.xpath("//a[text()=' Sign up ']"));
+       // click(By.xpath("//a[text()=' Sign up ']"));
+        click(By.cssSelector("a[href='/registration?url=%2Fsearch']"));//-> Sign up
+    }
+
+    public boolean isRegistrationFailed() {
+        WebDriverWait wait = new WebDriverWait(wd, 10);
+        WebElement element = wd.findElement(By.xpath("//h1[@class='title']"));
+        wait.until(ExpectedConditions.visibilityOf(element));
+        System.out.println(element.getText());
+
+        return wd.findElement(By.xpath("//h2[@class='message']")).getText().contains("exists");
+        //h1[@class='title'] -> Registration failed
+        ////h2[@class='message'] -. "User already exists"
+        //.positive-button.ng-star-inserted-> OK button
+
     }
 }

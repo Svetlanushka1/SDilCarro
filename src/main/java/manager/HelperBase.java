@@ -3,6 +3,8 @@ package manager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +17,12 @@ public class HelperBase {
 
     public boolean isElementPresent(By locator) {
         return wd.findElements(locator).size() > 0;
+    }
+    public boolean isElementVisible(By locator){
+        WebDriverWait wait = new WebDriverWait(wd,5);
+        WebElement elementVisible= wait.until(ExpectedConditions.visibilityOf(wd.findElement(locator)));
+        return true;
+
     }
 
     public void type(By locator, String text) {
@@ -32,15 +40,16 @@ public class HelperBase {
         wd.findElement(locator).click();
     }
 
+
     public void pause(int time) {
         //to postpone WebBrowser from action for a few min
-       //wd.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
-       //time = time *1000;
+        wd.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+      /*time = time *1000;
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
@@ -50,9 +59,22 @@ public class HelperBase {
 
     }
 
-    public void logoButton() {
-        click(By.xpath("//div[@class='header']//img[@alt='logo']"));
+    public void clickOnLogoButton() {
+
+        //click(By.xpath("//div[@class='header']//img[@alt='logo']"));
+        //click(By.cssSelector("div[class='error ng-star-inserted'] div:nth-child(1)"));
+        click(By.xpath("//a[@id='0']"));
+
     }
 
+    public void clickOnSearchTab() {
+        click(By.xpath("//a[@id='0']"));
+    }
+
+
 }
+
+
+
+
 

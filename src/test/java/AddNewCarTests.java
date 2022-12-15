@@ -1,5 +1,7 @@
 import models.Car;
 import models.User;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,8 +10,7 @@ public class AddNewCarTests extends TestBase {
     @BeforeMethod
     public void preCondition() {
      if (app.getUser().isLogged() == false) {
-            app.getUser()
-                    .login();
+            app.getUser().login();
         }
     /* if (app.getUser().isLogged() == false) {
             app.getUser()
@@ -36,18 +37,20 @@ public class AddNewCarTests extends TestBase {
                 .fuel("Hybrid")
                 .seats("4")
                 .carClass("luxury")
-                .carRegNumber("100-200"+i)
+                .carRegNumber("100-200" + i)
                 .price("300")
                 .build();
 
         app.getCar().openCarForm();
-        app.getUser().pause(3000);
+        app.getCar().isCarFormPresent();
+        app.getWait().until(ExpectedConditions.elementToBeClickable(By.xpath("//div/input[@placeholder='Enter your address']")));
+        //app.getUser().pause(3000);
         Assert.assertTrue(app.getCar().isCarFormPresent());
-        app.getUser().pause(3000);
+        app.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#pickUpPlace")));
         app.getCar().fillCarForm(car);
-        app.getUser().pause(2000);
+        //app.getUser().pause(2000);
         //app.getCar().addCarPhotos();//label[@for='photos']
-        app.getCar().submitCarForm();
+        //app.getCar().submitCarForm();
 
 
 
